@@ -62,7 +62,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-border pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-muted">
-          <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+          <p suppressHydrationWarning>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <p className="mt-2 sm:mt-0">Crafted with care by independent developers.</p>
         </div>
       </div>

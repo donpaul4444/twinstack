@@ -23,8 +23,14 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: site.logoMark,
-    apple: site.logoMark,
+    icon: [
+      { url: site.logoMark, type: "image/png" },
+      { url: "/favicon.ico" },
+    ],
+    shortcut: site.logoMark,
+    apple: [
+      { url: site.logoMark, type: "image/png" },
+    ],
   },
   openGraph: {
     type: "website",
@@ -57,9 +63,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body suppressHydrationWarning className="min-h-full flex flex-col font-sans">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

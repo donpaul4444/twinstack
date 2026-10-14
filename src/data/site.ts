@@ -5,11 +5,11 @@ export const site = {
   logo: "/logo-stacked.png",
   logoMark: "/logo-mark.png",
   logoStacked: "/logo-stacked.png",
-  url: "https://twinstack.com", // TODO: replace with the real domain
+  url: "https://twinstacksolutions.com",
   tagline: "We build modern, fast web experiences.",
   description:
     "Twinstack Solutions is a software studio building clean, fast, and reliable digital products and modern web applications.",
-  email: "hello@twinstack.com", // TODO: replace with the real email
+  email: "hello@twinstacksolutions.com",
   socials: [
     { label: "GitHub", href: "https://github.com/" }, // TODO
     { label: "LinkedIn", href: "https://www.linkedin.com/" }, // TODO
