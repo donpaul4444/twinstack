@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { API_URL } from "@/lib/api";
+import { site } from "@/data/site";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -13,16 +15,36 @@ export default function ContactForm() {
 
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setError(null);
 
-    // Simulate instant client confirmation
-    setTimeout(() => {
-      setSubmitting(false);
+    try {
+      const res = await fetch(`${API_URL}/clients`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        const detail = data.details?.[0];
+        throw new Error(
+          detail ? `Please check the ${detail.field} field.` : undefined,
+        );
+      }
       setSubmitted(true);
-    }, 600);
+    } catch (err) {
+      setError(
+        err instanceof Error && err.message
+          ? err.message
+          : "We couldn't send your message right now.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -176,6 +198,19 @@ export default function ContactForm() {
           ></textarea>
         </div>
       </div>
+
+      {error && (
+        <p
+          role="alert"
+          className="mt-4 rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-700"
+        >
+          {error} You can also email us at{" "}
+          <a href={`mailto:${site.email}`} className="font-semibold underline">
+            {site.email}
+          </a>
+          .
+        </p>
+      )}
 
       <button
         type="submit"
